@@ -556,7 +556,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             <p class="section-subtitle">Sagar Bawanthade </p>
 
-            <h1 class="h1 hero-title">Cloud & DevOps Based In Pune, India</h1>
+            <h1 class="h1 hero-title">Cloud, DevOps Based In Pune, India</h1>
 
             <ul class="hero-list">
 
@@ -1136,6 +1136,136 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
       </section>
 
+      <script>
+        // Auto-scroll functionality for tech stack and portfolio sections
+document.addEventListener('DOMContentLoaded', function() {
+  
+  // Generic auto-scroll function that works for any section
+  function createAutoScroll(sectionId, interval = 3000) {
+    const scrollContainer = document.querySelector(`${sectionId} .has-scrollbar`);
+    const items = document.querySelectorAll(`${sectionId} .scrollbar-item`);
+    
+    if (!scrollContainer || items.length === 0) return;
+    
+    let currentIndex = 0;
+    let autoScrollInterval;
+    let isUserInteracting = false;
+    
+    // Calculate item width including margins
+    function getItemWidth() {
+      if (items.length > 0) {
+        const item = items[0];
+        const style = window.getComputedStyle(item);
+        const width = item.offsetWidth;
+        const marginLeft = parseFloat(style.marginLeft);
+        const marginRight = parseFloat(style.marginRight);
+        return width + marginLeft + marginRight;
+      }
+      return 320; // fallback width
+    }
+    
+    // Smooth scroll to specific item
+    function scrollToItem(index) {
+      const itemWidth = getItemWidth();
+      const scrollLeft = index * itemWidth;
+      
+      scrollContainer.scrollTo({
+        left: scrollLeft,
+        behavior: 'smooth'
+      });
+    }
+    
+    // Auto scroll function
+    function autoScroll() {
+      if (isUserInteracting) return;
+      
+      currentIndex++;
+      
+      // Reset to beginning if we've reached the end
+      if (currentIndex >= items.length) {
+        currentIndex = 0;
+      }
+      
+      scrollToItem(currentIndex);
+    }
+    
+    // Start auto scroll
+    function startAutoScroll() {
+      autoScrollInterval = setInterval(autoScroll, interval);
+    }
+    
+    // Stop auto scroll
+    function stopAutoScroll() {
+      if (autoScrollInterval) {
+        clearInterval(autoScrollInterval);
+      }
+    }
+    
+    // Pause auto scroll when user interacts
+    scrollContainer.addEventListener('mouseenter', () => {
+      isUserInteracting = true;
+      stopAutoScroll();
+    });
+    
+    // Resume auto scroll when user stops interacting
+    scrollContainer.addEventListener('mouseleave', () => {
+      isUserInteracting = false;
+      startAutoScroll();
+    });
+    
+    // Pause on touch/scroll events
+    scrollContainer.addEventListener('touchstart', () => {
+      isUserInteracting = true;
+      stopAutoScroll();
+    });
+    
+    scrollContainer.addEventListener('scroll', () => {
+      if (isUserInteracting) {
+        stopAutoScroll();
+        // Resume after user stops scrolling
+        clearTimeout(scrollContainer.scrollTimeout);
+        scrollContainer.scrollTimeout = setTimeout(() => {
+          if (!isUserInteracting) {
+            startAutoScroll();
+          }
+        }, 2000);
+      }
+    });
+    
+    // Update current index based on scroll position
+    scrollContainer.addEventListener('scroll', () => {
+      const itemWidth = getItemWidth();
+      const scrollLeft = scrollContainer.scrollLeft;
+      currentIndex = Math.round(scrollLeft / itemWidth);
+    });
+    
+    // Start the auto scroll when page loads
+    startAutoScroll();
+    
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      // Recalculate and adjust scroll position
+      scrollToItem(currentIndex);
+    });
+    
+    // Return control object for external access if needed
+    return {
+      start: startAutoScroll,
+      stop: stopAutoScroll,
+      scrollTo: scrollToItem,
+      getCurrentIndex: () => currentIndex
+    };
+  }
+  
+  // Initialize auto-scroll for both sections
+  const techAutoScroll = createAutoScroll('#technologies', 2000); // 3 seconds for tech stack
+  const portfolioAutoScroll = createAutoScroll('#portfolio', 2000); // 4 seconds for portfolio (slightly slower)
+  
+  // Optional: You can control the auto-scroll from other parts of your code
+  // Example: techAutoScroll.stop(); or portfolioAutoScroll.start();
+});
+      </script>
+
 
       <!-- 
         - #CONTACT
@@ -1252,6 +1382,7 @@ document.addEventListener('DOMContentLoaded', function() {
     - custom js link
   -->
   <script src="./assets/js/script.js" defer></script>
+  <script src="./assets/js/typewriter.js"></script>
 
   <!-- 
     - ionicon link

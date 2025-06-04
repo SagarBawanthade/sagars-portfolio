@@ -373,64 +373,157 @@ body::-webkit-scrollbar-thumb {
 /*-----------------------------------*\
   #HERO
 \*-----------------------------------*/
+/* Mobile Slide Down Button Styles */
 
-.slide-down-btn { display: none; }
-
-.hero {
-  background-color: var(--cultured);
-  padding-block-start: calc(var(--section-padding) + 30px);
+/* Show and center the slide-down-btn on mobile */
+@media (max-width: 768px) {
+  .slide-down-btn {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    margin: 30px auto 0;
+    width: 50px;
+    height: 50px;
+    background: var(--white);
+    border: 2px solid var(--theme-color, #007bff);
+    border-radius: 50%;
+    color: var(--theme-color, #007bff);
+    font-size: 24px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    animation: bounce 2s infinite;
+  }
+  
+  .slide-down-btn:hover {
+    background: var(--theme-color, #007bff);
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .slide-down-btn ion-icon {
+    transition: transform 0.3s ease;
+  }
+  
+  .slide-down-btn:hover ion-icon {
+    transform: translateY(2px);
+  }
+  
+  /* Center the entire hero content on mobile */
+  .hero-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Adjust hero elements for better mobile centering */
+  .hero-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .hero-list .list-link {
+    justify-content: center;
+    text-align: center;
+    padding: 12px 20px;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    min-width: 200px;
+    transition: all 0.3s ease;
+  }
+  
+  .hero-list .list-link:hover {
+    background: var(--theme-color, #007bff);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Center social links */
+  .exp-list {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+  }
+  
+  .exp-list .list-item {
+    justify-content: center;
+    text-align: center;
+  }
+  
+  .social-link-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    min-width: 120px;
+  }
+  
+  .social-link-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Center resume download button */
+  .resume-download {
+    margin: 20px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 24px;
+    background: var(--theme-color, #007bff);
+    color: white;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    max-width: 200px;
+  }
+  
+  .resume-download:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    background: var(--theme-color-dark, #0056b3);
+  }
 }
 
-.hero-banner {
-  margin-block-end: 60px;
-  max-height: 500px;
-  border-radius: var(--radius-10);
-  margin-inline: auto;
+/* Bounce animation for slide-down button */
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
 }
 
-.hero-title { margin-block: 10px 20px; }
-
-.hero-list { margin-block-end: 25px; }
-
-.hero-list .list-link {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 12px;
-  color: var(--black);
-  font-size: var(--fs-17);
-  padding-block: 6px;
+/* Tablet view adjustments */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .slide-down-btn {
+    display: flex !important;
+    margin: 20px auto 0;
+  }
+  
+  .hero-content {
+    text-align: center;
+  }
 }
-
-.hero-list .list-link:is(:hover, :focus) { color: var(--theme-color); }
-
-.hero-list .list-link .span,
-.hero-list .list-link ion-icon { transition: var(--transition); }
-
-.hero-list .list-link:is(:hover, :focus) ion-icon { transform: rotate(-45deg); }
-
-.exp-list .list-item {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 15px;
-  font-family: var(--ff-poppins);
-  line-height: 1.4;
-}
-
-.exp-list .list-item:not(:last-child) { margin-block-end: 15px; }
-
-.exp-list .strong {
-  color: var(--black);
-  font-size: var(--fs-35);
-  font-weight: var(--fw-600);
-}
-
-.exp-list .span { font-size: var(--fs-13); }
-
-
-
-
 
 /*-----------------------------------*\
   #SKILLS
@@ -1690,6 +1783,7 @@ textarea.input-field {
   font-weight: 300;
   text-transform: uppercase;
   letter-spacing: 2px;
+  margin-top: 10px;
   margin-bottom: 10px;
   text-align: center;
 }
